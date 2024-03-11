@@ -1,5 +1,6 @@
 package com.scaler.myscalerproject.controllers;
 
+import com.scaler.myscalerproject.dto.FakeStoreProductDto;
 import com.scaler.myscalerproject.models.Product;
 import com.scaler.myscalerproject.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +28,8 @@ public class ProductController {
         return productService.getSingleProduct(id);
     }
     @PostMapping()
-    public Product addNewProduct(@RequestBody Product product) {
-        Product p = new Product();
-        p.setTitle("A new product");
-        return new Product();
+    public Product addNewProduct(@RequestBody FakeStoreProductDto product) {
+        return productService.addNewProduct(product);
     }
 
     @PatchMapping("/{id}")
