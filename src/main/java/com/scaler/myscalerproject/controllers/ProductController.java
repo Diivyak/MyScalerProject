@@ -1,6 +1,7 @@
 package com.scaler.myscalerproject.controllers;
 
 import com.scaler.myscalerproject.dto.FakeStoreProductDto;
+import com.scaler.myscalerproject.exceptions.ProductNotExistsException;
 import com.scaler.myscalerproject.models.Product;
 import com.scaler.myscalerproject.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,10 +31,18 @@ public class ProductController {
         return response;
     }
     @GetMapping("/{id}")
-    public Product getSingleProduct(@PathVariable("id") Long id) {
+    public ResponseEntity<Product> getSingleProduct(@PathVariable("id") Long id) throws ProductNotExistsException {
 
+//        try {
+            return new ResponseEntity<>(
+                    productService.getSingleProduct(id), HttpStatus.OK);
+//        }
+//        catch (ArithmeticException exception) {
+//            ResponseEntity<Product> response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//            return response;
+//        }
 //        throw new RuntimeException("Something went wrong");
-        return productService.getSingleProduct(id);
+//        return productService.getSingleProduct(id);
     }
     @PostMapping()
     public Product addNewProduct(@RequestBody FakeStoreProductDto product) {
