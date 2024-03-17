@@ -31,10 +31,13 @@ public class ProductController {
     }
     @GetMapping("/{id}")
     public Product getSingleProduct(@PathVariable("id") Long id) {
+
+//        throw new RuntimeException("Something went wrong");
         return productService.getSingleProduct(id);
     }
     @PostMapping()
     public Product addNewProduct(@RequestBody FakeStoreProductDto product) {
+//        throw new RuntimeException("Something went wrong");
         return productService.addNewProduct(product);
     }
 
