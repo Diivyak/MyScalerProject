@@ -4,6 +4,9 @@ import com.scaler.myscalerproject.dto.FakeStoreProductDto;
 import com.scaler.myscalerproject.models.Product;
 import com.scaler.myscalerproject.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -20,9 +23,11 @@ public class ProductController {
         this.productService = productService;
     }
     @GetMapping()
-    public List<Product> getAllProducts() {
-
-        return productService.getAllProducts();
+    public  ResponseEntity<List<Product>> getAllProducts() {
+        ResponseEntity<List<Product>>  response = new ResponseEntity<>(
+                productService.getAllProducts(), HttpStatus.NOT_FOUND
+        );
+        return response;
     }
     @GetMapping("/{id}")
     public Product getSingleProduct(@PathVariable("id") Long id) {

@@ -4,10 +4,14 @@ import com.scaler.myscalerproject.dto.FakeStoreProductDto;
 import com.scaler.myscalerproject.models.Category;
 import com.scaler.myscalerproject.models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpMessageConverterExtractor;
+import org.springframework.web.client.RequestCallback;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -68,7 +72,12 @@ public class FakeStoreProductService implements ProductService{
 
     @Override
     public Product replaceProduct(Long id, Product product) {
-        return null;
+
+        RequestCallback requestCallback = restTemplate.httpEntityCallback(new FakeStoreProductDto(), FakeStoreProductDto.class);
+        HttpMessageConverterExtractor<FakeStoreProductDto> responseExtractor =
+                new HttpMessageConverterExtractor<>(FakeStoreProductDto.class, restTemplate.getMessageConverters());
+        FakeStoreProductDto response =  restTemplate.execute("https://fakestoreapi.com/products/" + id, HttpMethod.PUT, requestCallback,  responseExtractor);
+        return convertFakeStoreProductToProduct(response);
     }
 
 
