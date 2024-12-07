@@ -1,7 +1,7 @@
-package com.scaler.myscalerproject.inheritancedemo.tableperclass;
+package com.scaler.myscalerproject.inheritanceDemo.tableperclass;
 
+import com.scaler.myscalerproject.tableperclass.User;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,8 +9,5 @@ import lombok.Setter;
 @Setter
 @Entity(name = "tbc_instructor")
 public class Instructor extends User {
-    @Id
-    private Long Id;
-
     private String favouriteStudent;
 }

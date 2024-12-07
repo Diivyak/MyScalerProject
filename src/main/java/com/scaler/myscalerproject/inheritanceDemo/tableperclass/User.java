@@ -1,4 +1,4 @@
-package com.scaler.myscalerproject.inheritancedemo.tableperclass;
+package com.scaler.myscalerproject.tableperclass;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -14,7 +14,6 @@ import lombok.Setter;
 public class User {
     @Id
     private Long id;
-
     private String name;
     private String email;
 }

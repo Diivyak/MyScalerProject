@@ -1,4 +1,4 @@
-package com.scaler.myscalerproject.inheritancedemo.mappedsuperclass;
+package com.scaler.myscalerproject.inheritanceDemo.mappedsuperclass;
 
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;

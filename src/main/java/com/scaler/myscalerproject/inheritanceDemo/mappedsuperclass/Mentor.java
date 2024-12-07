@@ -1,4 +1,4 @@
-package com.scaler.myscalerproject.inheritancedemo.tableperclass;
+package com.scaler.myscalerproject.inheritanceDemo.mappedsuperclass;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -7,8 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Entity(name = "tbc_instructor")
-
+@Entity(name = "ms_mentor")
 public class Mentor extends User {
     @Id
     private Long Id;
