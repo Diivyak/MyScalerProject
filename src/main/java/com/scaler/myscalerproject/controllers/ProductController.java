@@ -5,6 +5,7 @@ import com.scaler.myscalerproject.exceptions.ProductNotExistsException;
 import com.scaler.myscalerproject.models.Product;
 import com.scaler.myscalerproject.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class ProductController {
 
     private ProductService productService;
     @Autowired
-    public ProductController(ProductService productService) {
+    public ProductController(@Qualifier("SelfProductService") ProductService productService) {
         this.productService = productService;
     }
     @GetMapping()
