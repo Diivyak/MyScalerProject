@@ -40,9 +40,13 @@ public class SelfProductService implements  ProductService{
     @Override
     public Product addNewProduct(Product product) {
         Category category = product.getCategory();
-        if(category.getId() == null) {
-            Category savedCategory = categoryRepository.save(category);
-            product.setCategory(savedCategory);
+//        if(category.getId() == null) {
+//            Category savedCategory = categoryRepository.save(category);
+//            product.setCategory(savedCategory);
+//        }
+        Optional<Category> categoryOptional = categoryRepository.findByName(product.getCategory().getName());
+        if(categoryOptional.isEmpty()) {
+            product.setCategory(categoryRepository.save(product.getCategory()));
         }
         return productRespository.save(product);
     }
