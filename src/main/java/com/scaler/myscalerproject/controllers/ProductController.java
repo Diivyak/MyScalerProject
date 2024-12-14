@@ -46,8 +46,7 @@ public class ProductController {
 //        return productService.getSingleProduct(id);
     }
     @PostMapping()
-    public Product addNewProduct(@RequestBody FakeStoreProductDto product) {
-//        throw new RuntimeException("Something went wrong");
+    public Product addNewProduct(@RequestBody Product product) {
         return productService.addNewProduct(product);
     }
 

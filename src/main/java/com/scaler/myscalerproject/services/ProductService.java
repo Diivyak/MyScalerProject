@@ -10,9 +10,11 @@ public interface ProductService {
 
     Product getSingleProduct(Long id) throws ProductNotExistsException;
 
-    Product addNewProduct(FakeStoreProductDto product);
+    Product addNewProduct(Product product);
 
+    Product updateProduct(Long id, Product product);
     List<Product> getAllProducts();
 
     Product replaceProduct(Long id, Product product);
+    boolean deleteProduct(Long id);
 }

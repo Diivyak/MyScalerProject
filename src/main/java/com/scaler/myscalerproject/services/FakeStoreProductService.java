@@ -59,21 +59,37 @@ public class FakeStoreProductService implements ProductService{
     }
 
     @Override
-    public Product addNewProduct(FakeStoreProductDto product) {
-        FakeStoreProductDto productDto = restTemplate.postForObject("https://fakestoreapi.com/products",product, FakeStoreProductDto.class);
-        return convertFakeStoreProductToProduct(productDto);
+    public Product addNewProduct(Product product) {
+        return null;
+    }
+
+
+    @Override
+    public Product updateProduct(Long id, Product product) {
+        return null;
     }
 
     @Override
     public List<Product> getAllProducts() {
-        FakeStoreProductDto[] response = restTemplate.getForObject("https://fakestoreapi.com/products/", FakeStoreProductDto[].class);
-        List<Product> answer = new ArrayList<>();
-
-        for(FakeStoreProductDto dto: response) {
-            answer.add(convertFakeStoreProductToProduct(dto));
-        }
-        return answer;
+        return null;
     }
+
+//    @Override
+//    public Product addNewProduct(FakeStoreProductDto product) {
+//        FakeStoreProductDto productDto = restTemplate.postForObject("https://fakestoreapi.com/products",product, FakeStoreProductDto.class);
+//        return convertFakeStoreProductToProduct(productDto);
+//    }
+//
+//    @Override
+//    public List<Product> getAllProducts() {
+//        FakeStoreProductDto[] response = restTemplate.getForObject("https://fakestoreapi.com/products/", FakeStoreProductDto[].class);
+//        List<Product> answer = new ArrayList<>();
+//
+//        for(FakeStoreProductDto dto: response) {
+//            answer.add(convertFakeStoreProductToProduct(dto));
+//        }
+//        return answer;
+//    }
 
     @Override
     public Product replaceProduct(Long id, Product product) {
@@ -83,6 +99,11 @@ public class FakeStoreProductService implements ProductService{
                 new HttpMessageConverterExtractor<>(FakeStoreProductDto.class, restTemplate.getMessageConverters());
         FakeStoreProductDto response =  restTemplate.execute("https://fakestoreapi.com/products/" + id, HttpMethod.PUT, requestCallback,  responseExtractor);
         return convertFakeStoreProductToProduct(response);
+    }
+
+    @Override
+    public boolean deleteProduct(Long id) {
+        return false;
     }
 
 
