@@ -20,7 +20,6 @@ class MyScalerProjectApplicationTests {
 	@Commit
 	void testQueries() {
 		productRespository.findByTitleContaining("divya");
-		productRespository.deleteByTitle("divya");
 
 	}
 

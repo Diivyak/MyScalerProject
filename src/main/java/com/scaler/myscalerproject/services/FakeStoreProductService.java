@@ -102,8 +102,13 @@ public class FakeStoreProductService implements ProductService{
     }
 
     @Override
-    public boolean deleteProduct(Long id) {
-        return false;
+    public void deleteProduct(Long id) {
+
+    }
+
+    @Override
+    public List<Product> getProductsByCategory(String category) {
+        return null;
     }
 
 

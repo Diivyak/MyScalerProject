@@ -3,6 +3,7 @@ package com.scaler.myscalerproject.controllers;
 import com.scaler.myscalerproject.dto.FakeStoreProductDto;
 import com.scaler.myscalerproject.exceptions.ProductNotExistsException;
 import com.scaler.myscalerproject.models.Product;
+import com.scaler.myscalerproject.repositories.ProductRespository;
 import com.scaler.myscalerproject.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -20,14 +21,25 @@ import java.util.List;
 public class ProductController {
 
     private ProductService productService;
+    private final ProductRespository productRespository;
+
     @Autowired
-    public ProductController(@Qualifier("SelfProductService") ProductService productService) {
+    public ProductController(@Qualifier("SelfProductService") ProductService productService,
+                             ProductRespository productRespository) {
         this.productService = productService;
+        this.productRespository = productRespository;
     }
     @GetMapping()
     public  ResponseEntity<List<Product>> getAllProducts() {
         ResponseEntity<List<Product>>  response = new ResponseEntity<>(
                 productService.getAllProducts(), HttpStatus.NOT_FOUND
+        );
+        return response;
+    }
+    @GetMapping("/{category}")
+    public  ResponseEntity<List<Product>> getAllProductsByCategory(@PathVariable("category") String category) {
+        ResponseEntity<List<Product>>  response = new ResponseEntity<>(
+                productService.getProductsByCategory(category), HttpStatus.NOT_FOUND
         );
         return response;
     }
@@ -52,7 +64,8 @@ public class ProductController {
 
     @PatchMapping("/{id}")
     public Product updateProduct(@PathVariable("id") Long id,  @RequestBody Product product) {
-        return new Product();
+
+        return productService.updateProduct(id, product);
     }
 
     @PutMapping("/{id}")
@@ -62,6 +75,7 @@ public class ProductController {
 
     @DeleteMapping("/{id}")
     public void deleteProduct(@PathVariable("id") Long id) {
+        productService.deleteProduct(id);
     }
 
 }

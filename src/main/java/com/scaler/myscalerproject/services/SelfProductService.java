@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,12 +54,28 @@ public class SelfProductService implements  ProductService{
 
     @Override
     public Product updateProduct(Long id, Product product) {
-        return null;
+        Optional<Product> productOptional = productRespository.findById(id);
+        if(productOptional.isEmpty()) throw new RuntimeException();
+        Product savedProduct = productOptional.get();
+
+        if(product.getTitle() != null) {
+            savedProduct.setTitle(product.getTitle());
+        }
+        if(product.getDescription() != null) {
+            savedProduct.setDescription(product.getDescription());
+        }
+        if(product.getPrice() != null) {
+            savedProduct.setPrice(product.getPrice());
+        }
+        if(product.getImageUrl() != null) {
+            savedProduct.setImageUrl(product.getImageUrl());
+        }
+        return productRespository.save(savedProduct);
     }
 
     @Override
     public List<Product> getAllProducts() {
-        return null;
+        return productRespository.findAll();
     }
 
 
@@ -68,7 +85,18 @@ public class SelfProductService implements  ProductService{
     }
 
     @Override
-    public boolean deleteProduct(Long id) {
-        return false;
+    public void deleteProduct(Long id) {
+        productRespository.deleteById(id);
+    }
+
+    @Override
+    public List<Product> getProductsByCategory(String category) {
+        Optional<Category> categoryOptional = categoryRepository.findByName(category);
+        if(!categoryOptional.isEmpty()) {
+            Category savedCategory = categoryOptional.get();
+
+           return  productRespository.findProductsByCategory(savedCategory);
+        }
+        return new ArrayList<Product>();
     }
 }
