@@ -1,5 +1,6 @@
 package com.scaler.myscalerproject.controllers;
 
+import com.scaler.myscalerproject.commons.AuthenticationCommons;
 import com.scaler.myscalerproject.dto.FakeStoreProductDto;
 import com.scaler.myscalerproject.exceptions.ProductNotExistsException;
 import com.scaler.myscalerproject.models.Product;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,17 +24,49 @@ public class ProductController {
 
     private ProductService productService;
     private final ProductRespository productRespository;
+    private RestTemplate restTemplate;
+    private AuthenticationCommons authenticationCommons;
+
 
     @Autowired
     public ProductController(@Qualifier("SelfProductService") ProductService productService,
                              ProductRespository productRespository) {
         this.productService = productService;
         this.productRespository = productRespository;
+        this.restTemplate = restTemplate;
+        this.authenticationCommons = authenticationCommons;
     }
     @GetMapping()
-    public  ResponseEntity<List<Product>> getAllProducts() {
-        ResponseEntity<List<Product>>  response = new ResponseEntity<>(
-                productService.getAllProducts(), HttpStatus.NOT_FOUND
+    public  ResponseEntity<List<Product>> getAllProducts(@RequestHeader("AuthenticationToken") String token) {
+////        restTemplate.delete(null);
+//
+//        UserDto userDto = authenticationCommons.validateToken(token);
+//
+//        if (userDto == null) {
+//            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+//        }
+//
+//        boolean isAdmin = false;
+//
+//        for (Role role: userDto.getRoles()) {
+//            if (role.getName().equals("ADMIN")) {
+//                isAdmin = true;
+//                break;
+//            }
+//        }
+//
+//        if (!isAdmin) return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        List<Product> products = productService.getAllProducts(); // o p q
+
+        List<Product> finalProducts = new ArrayList<>();
+
+        for (Product p: products) { // o  p q
+            p.setTitle("Hello" + p.getTitle());
+            finalProducts.add(p);
+        }
+
+        ResponseEntity<List<Product>> response = new ResponseEntity<>(
+                finalProducts, HttpStatus.FORBIDDEN
         );
         return response;
     }

@@ -16,5 +16,4 @@ public class Product extends BaseModel{
     private String description;
     private String imageUrl;
     private int numOfSales;
-    private boolean isPop;
 }
