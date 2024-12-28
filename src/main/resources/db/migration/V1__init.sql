@@ -60,7 +60,6 @@ CREATE TABLE product
     `description`   VARCHAR(255) NULL,
     image_url       VARCHAR(255) NULL,
     num_of_sales    INT    NOT NULL,
-    is_pop          BIT(1) NOT NULL,
     CONSTRAINT pk_product PRIMARY KEY (id)
 );
 

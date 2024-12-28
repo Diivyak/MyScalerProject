@@ -7,5 +7,5 @@ import lombok.Setter;
 @Setter
 public class ExceptionDto {
     private String message;
-    private String details;
+    private String detail;
 }

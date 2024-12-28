@@ -13,19 +13,29 @@ public class ExceptionHandlers {
 
     @ExceptionHandler(ArithmeticException.class)
     public ResponseEntity<ArithmeticExceptionDto> handleArithmeticException() {
-        ArithmeticExceptionDto arithmeticExceptionDto= new ArithmeticExceptionDto();
+        ArithmeticExceptionDto arithmeticExceptionDto = new ArithmeticExceptionDto();
         arithmeticExceptionDto.setMessage("Something has gone wrong");
         return new ResponseEntity<>(arithmeticExceptionDto, HttpStatus.OK);
     }
+
     @ExceptionHandler(ArrayIndexOutOfBoundsException.class)
-    public ResponseEntity<Void> handleArrayIndexOutOfBoundsException() {
+    public ResponseEntity<Void> handleArrayIndexOutOfBoundException() {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @ExceptionHandler(ProductNotExistsException.class)
-    public ResponseEntity<ExceptionDto> handleProductNotExistsException(ProductNotExistsException exception) {
-        ExceptionDto exceptionDto = new ExceptionDto();
-        exceptionDto.setMessage(exception.getMessage());
-        return new ResponseEntity<>(exceptionDto, HttpStatus.OK);
+    public ResponseEntity<ExceptionDto> handleProductNotExistsException(
+            ProductNotExistsException exception
+    ) {
+        ExceptionDto dto = new ExceptionDto();
+        dto.setMessage(exception.getMessage());
+        dto.setDetail("Check the product id. It probably doesn't exist.");
+
+        return new ResponseEntity<>(dto, HttpStatus.OK);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ExceptionDto> genericException(Exception e) {
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
