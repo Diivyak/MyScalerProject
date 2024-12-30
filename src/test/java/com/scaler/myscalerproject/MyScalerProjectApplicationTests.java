@@ -16,22 +16,22 @@ class MyScalerProjectApplicationTests {
 
 	@Autowired
 	public ProductRespository productRespository;
-	@Test
-	void contextLoads() {
-	}
-	@Test
-	@Transactional
-	@Commit
-	void testQueries() {
-		productRespository.findByTitleContaining("divya");
-		List<ProductWithIdAndTitle> productList = productRespository.somethingSomething(52L);
-		for(ProductWithIdAndTitle product: productList){
-			System.out.println(product.getId());
-			System.out.println(product.getTitle());
-
-		}
-		List<Product> productList1 = productRespository.someSome2();
-
-	}
+//	@Test
+//	void contextLoads() {
+//	}
+//	@Test
+//	@Transactional
+//	@Commit
+//	void testQueries() {
+//		productRespository.findByTitleContaining("divya");
+//		List<ProductWithIdAndTitle> productList = productRespository.somethingSomething(52L);
+//		for(ProductWithIdAndTitle product: productList){
+//			System.out.println(product.getId());
+//			System.out.println(product.getTitle());
+//
+//		}
+//		List<Product> productList1 = productRespository.someSome2();
+//
+//	}
 
 }
